@@ -2,7 +2,7 @@
 	"name": "vscode-uppercasesql",
 	"displayName": "vscode-uppercasesql",
 	"description": "makes all SQL keywords uppercase",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.39.0"
 	},
@@ -10,14 +10,22 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onCommand:extension.SQLuppercase"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [{
-			"command": "extension.helloWorld",
-			"title": "Hello World"
-		}]
+		"commands": [
+			{
+			"command": "extension.SQLuppercase",
+			"title": "SQL Uppercase"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "extension.SQLuppercase",
+				"key": "ctrl+alt+s"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
