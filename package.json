@@ -1,8 +1,8 @@
 {
 	"name": "vscode-uppercasesql",
-	"displayName": "vscode-uppercasesql",
+	"displayName": "Upper Case SQL",
 	"publisher": "eplak",
-	"description": "makes all SQL keywords uppercase",
+	"description": "makes all SQL keywords upper case",
 	"repository": {
 		"url": "https://github.com/eplak/vscode-uppercasesql"
 	},
