@@ -15,7 +15,7 @@ No known issues atm
 
 ## Release Notes
 
-### 1.0.0
+## [1.0.1]
 
-Initial release of vscode-SQLuppercase
+- Updated the title of the project
 
