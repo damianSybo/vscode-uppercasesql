@@ -15,7 +15,7 @@ No known issues atm
 
 ## Release Notes
 
-## [1.0.1]
+### [1.0.1]
 
 - Updated the title of the project
 
