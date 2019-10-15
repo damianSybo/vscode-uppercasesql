@@ -13,7 +13,6 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 
 		let SQLKeyWords : string[] = ["select","from","where","inner","natural","join","outer","right","left","full","having","as","create","view","is","null","on","using","count","not","like","and","or","order","by","group","desc","union","with","distinct","add","constraint","alter","coloumn","table","all","any","asc","database","between","case","check","index","replace","procedure","unique","default","delete","drop","exec","exists","foreign","from","in","insert","into","limit","primary","key","rownum","set","top","trunctate","update","values"];
-		let reg = /select |from |where |inner |natural |join |outer |right |left |full |having |as |create |view |is |null |on |using |count |not |like |and |or |order |by |group |desc |union |with |distinct |add |constraint |alter |coloumn |table |all |any |asc |database |between |case |check |index |replace |procedure |unique |default |delete |drop |exec |exists |foreign |from |in |insert |into |limit |primary |key |rownum |set |top |trunctate |update |values/ig;
 		let editor : vscode.TextEditor | undefined = vscode.window.activeTextEditor;
 
 		if (editor != undefined) {
@@ -35,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
 			for (let i = 0; i < newLines.length; i++) {
 				newText += newLines[i] + "\n";
 			}
-			
+
 			newText = newText.slice(0, newText.length-1);
 
 			editor.edit(editBuilder => {
