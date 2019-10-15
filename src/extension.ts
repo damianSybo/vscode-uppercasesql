@@ -12,61 +12,38 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable : vscode.Disposable = vscode.commands.registerCommand('extension.SQLuppercase', () => {
 		// The code you place here will be executed every time your command is executed
 
-		let SQLKeyWords : string[] = ["select","from","where","inner","natural","join","outer","right","left","full","having","as","create","view","is","null","on","using","count","not","like","and","or","order","by","group","desc","union","with","distinct","add","constraint","alter","coloumn","table","all","any","asc","database","between","case","check","index","replace","procedure","unique","default","delete","drop","exec","exists","foreign","from","in","insert","into","limit","primary","key","rownum","set","top","trunctate","update","values"]
-
+		let SQLKeyWords : string[] = ["select","from","where","inner","natural","join","outer","right","left","full","having","as","create","view","is","null","on","using","count","not","like","and","or","order","by","group","desc","union","with","distinct","add","constraint","alter","coloumn","table","all","any","asc","database","between","case","check","index","replace","procedure","unique","default","delete","drop","exec","exists","foreign","from","in","insert","into","limit","primary","key","rownum","set","top","trunctate","update","values"];
+		let reg = /select |from |where |inner |natural |join |outer |right |left |full |having |as |create |view |is |null |on |using |count |not |like |and |or |order |by |group |desc |union |with |distinct |add |constraint |alter |coloumn |table |all |any |asc |database |between |case |check |index |replace |procedure |unique |default |delete |drop |exec |exists |foreign |from |in |insert |into |limit |primary |key |rownum |set |top |trunctate |update |values/ig;
 		let editor : vscode.TextEditor | undefined = vscode.window.activeTextEditor;
 
 		if (editor != undefined) {
 			let document : vscode.TextDocument = editor.document;
 			let text : string = document.getText();
-			let lineArray : vscode.TextLine[] = [];
-			let newLineArray : string[] = [];
-
-			for (let index = 0; index < document.lineCount; index++) {
-				lineArray.push(document.lineAt(index));
-			}
-
-			for (let index = 0; index < lineArray.length; index++) {
-				let lineText : string = lineArray[index].text;
-				let textArray : string[] = lineText.split(" ");
-				let newTextArray : string[] = [];
-
-				for (let index2 = 0; index2 < textArray.length; index2++) {
-					const word : string = textArray[index2];
-					if (SQLKeyWords.includes(word)) {
-						newTextArray.push(word.toUpperCase());
-					} else {
-						newTextArray.push(word);
-					}
-				}
-
-				let newText : string = "";
-				for (let index2 = 0; index2 < newTextArray.length; index2++) {
-					const word : string = newTextArray[index2]
-					newText += word + " ";
-				}
-				newText = newText.slice(0,newText.length-1);
-				newText += "\n";
-				newLineArray.push(newText);
-			}
-
+			let lines : string[] = text.split("\n");
+			let newLines : string[] = [];
 			let newText : string = "";
 			
-			for (let index = 0; index < newLineArray.length; index++) {
-				newText += newLineArray[index];
-				
-			}
-			newText = newText.slice(0,newText.length-1);
 
-			//deletes old text and inserts new
+			for (let i = 0; i < lines.length; i++) {
+				let tempText = lines[i];
+				for (let j = 0; j < SQLKeyWords.length; j++) {
+					tempText = tempText.replace(SQLKeyWords[j] + " ", SQLKeyWords[j].toUpperCase() + " ");
+				}
+				newLines.push(tempText);
+			}
+
+			for (let i = 0; i < newLines.length; i++) {
+				newText += newLines[i] + "\n";
+			}
+			
+			newText = newText.slice(0, newText.length-1);
+
 			editor.edit(editBuilder => {
 				editBuilder.delete(new vscode.Range(document.positionAt(0), document.positionAt(text.length)));
 				let beginning : vscode.Position = new vscode.Position(0, 0);
 				editBuilder.insert(beginning, newText);
 			});
-
 		}
-
 	});
 
 	context.subscriptions.push(disposable);

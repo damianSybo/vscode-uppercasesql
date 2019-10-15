@@ -12,43 +12,25 @@ function activate(context) {
     let disposable = vscode.commands.registerCommand('extension.SQLuppercase', () => {
         // The code you place here will be executed every time your command is executed
         let SQLKeyWords = ["select", "from", "where", "inner", "natural", "join", "outer", "right", "left", "full", "having", "as", "create", "view", "is", "null", "on", "using", "count", "not", "like", "and", "or", "order", "by", "group", "desc", "union", "with", "distinct", "add", "constraint", "alter", "coloumn", "table", "all", "any", "asc", "database", "between", "case", "check", "index", "replace", "procedure", "unique", "default", "delete", "drop", "exec", "exists", "foreign", "from", "in", "insert", "into", "limit", "primary", "key", "rownum", "set", "top", "trunctate", "update", "values"];
+        let reg = /select |from |where |inner |natural |join |outer |right |left |full |having |as |create |view |is |null |on |using |count |not |like |and |or |order |by |group |desc |union |with |distinct |add |constraint |alter |coloumn |table |all |any |asc |database |between |case |check |index |replace |procedure |unique |default |delete |drop |exec |exists |foreign |from |in |insert |into |limit |primary |key |rownum |set |top |trunctate |update |values/ig;
         let editor = vscode.window.activeTextEditor;
         if (editor != undefined) {
             let document = editor.document;
             let text = document.getText();
-            let lineArray = [];
-            let newLineArray = [];
-            for (let index = 0; index < document.lineCount; index++) {
-                lineArray.push(document.lineAt(index));
-            }
-            for (let index = 0; index < lineArray.length; index++) {
-                let lineText = lineArray[index].text;
-                let textArray = lineText.split(" ");
-                let newTextArray = [];
-                for (let index2 = 0; index2 < textArray.length; index2++) {
-                    const word = textArray[index2];
-                    if (SQLKeyWords.includes(word)) {
-                        newTextArray.push(word.toUpperCase());
-                    }
-                    else {
-                        newTextArray.push(word);
-                    }
-                }
-                let newText = "";
-                for (let index2 = 0; index2 < newTextArray.length; index2++) {
-                    const word = newTextArray[index2];
-                    newText += word + " ";
-                }
-                newText = newText.slice(0, newText.length - 1);
-                newText += "\n";
-                newLineArray.push(newText);
-            }
+            let lines = text.split("\n");
+            let newLines = [];
             let newText = "";
-            for (let index = 0; index < newLineArray.length; index++) {
-                newText += newLineArray[index];
+            for (let i = 0; i < lines.length; i++) {
+                let tempText = lines[i];
+                for (let j = 0; j < SQLKeyWords.length; j++) {
+                    tempText = tempText.replace(SQLKeyWords[j] + " ", SQLKeyWords[j].toUpperCase() + " ");
+                }
+                newLines.push(tempText);
+            }
+            for (let i = 0; i < newLines.length; i++) {
+                newText += newLines[i] + "\n";
             }
             newText = newText.slice(0, newText.length - 1);
-            //deletes old text and inserts new
             editor.edit(editBuilder => {
                 editBuilder.delete(new vscode.Range(document.positionAt(0), document.positionAt(text.length)));
                 let beginning = new vscode.Position(0, 0);
