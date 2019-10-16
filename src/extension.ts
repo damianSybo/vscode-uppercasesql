@@ -19,11 +19,10 @@ export function activate(context: vscode.ExtensionContext) {
 			let document : vscode.TextDocument = editor.document;
 			let origText : string = document.getText();
 			let text : string = origText.substr(0, origText.length);
-			let newText : string = "";
 
 			for (let i = 0; i < SQLKeyWords.length; i++) {
 				if (text.indexOf(SQLKeyWords[i]) === 0) {
-					newText = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
+					text = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
 				}
 				while (text != text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ") ||
 						text != text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ") ||
