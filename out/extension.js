@@ -15,7 +15,7 @@ function activate(context) {
         let editor = vscode.window.activeTextEditor;
         if (editor != undefined) {
             let document = editor.document;
-            let origText = document.getText().toLowerCase();
+            let origText = document.getText();
             let text = origText.substr(0, origText.length);
             let newText = "";
             for (let i = 0; i < SQLKeyWords.length; i++) {

@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		if (editor != undefined) {
 			let document : vscode.TextDocument = editor.document;
-			let origText : string = document.getText().toLowerCase()
+			let origText : string = document.getText();
 			let text : string = origText.substr(0, origText.length);
 			let newText : string = "";
 
