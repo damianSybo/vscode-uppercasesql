@@ -15,7 +15,7 @@ function activate(context) {
         let editor = vscode.window.activeTextEditor;
         if (editor != undefined) {
             let document = editor.document;
-            let text = document.getText();
+            let text = document.getText().toLowerCase();
             for (let i = 0; i < SQLKeyWords.length; i++) {
                 text = text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ");
                 text = text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ");

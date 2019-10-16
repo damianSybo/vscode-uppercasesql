@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		if (editor != undefined) {
 			let document : vscode.TextDocument = editor.document;
-			let text : string = document.getText();
+			let text : string = document.getText().toLowerCase();
 			
 
 			for (let i = 0; i < SQLKeyWords.length; i++) {
