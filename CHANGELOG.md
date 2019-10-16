@@ -3,6 +3,10 @@
 All notable changes to the "vscode-uppercasesql" extension will be documented in this file.
 
 
+## [1.0.3]
+
+- Decent optimization improvements
+
 ## [1.0.2]
 
 - Updated the readme

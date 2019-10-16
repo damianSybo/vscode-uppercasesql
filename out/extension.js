@@ -16,7 +16,7 @@ function activate(context) {
         if (editor != undefined) {
             let document = editor.document;
             let text = document.getText();
-            for (let i = 0; i < text.length; i++) {
+            for (let i = 0; i < SQLKeyWords.length; i++) {
                 text = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
             }
             editor.edit(editBuilder => {

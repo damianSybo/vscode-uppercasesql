@@ -15,7 +15,7 @@ No known issues atm
 
 ## Release Notes
 
-### [1.0.1]
+### [1.0.3]
 
-- Updated the title of the project
+- Decent optimization improvements
 
