@@ -12,7 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable : vscode.Disposable = vscode.commands.registerCommand('extension.SQLuppercase', () => {
 		// The code you place here will be executed every time your command is executed
 
-		let SQLKeyWords : string[] = ["select","from","where","inner","natural","join","outer","right","left","full","having","as","create","view","is","null","on","using","count","not","like","and","or","order","by","group","desc","union","with","distinct","add","constraint","alter","coloumn","table","all","any","asc","database","between","case","check","index","replace","procedure","unique","default","delete","drop","exec","exists","foreign","from","in","insert","into","limit","primary","key","rownum","set","top","trunctate","update","values"];
+		const SQLKeyWords : string[] = ["select","from","where","inner","natural","join","outer","right","left","full","having","as","create","view","is","null","on","using","count","not","like","and","or","order","by","group","desc","union","with","distinct","add","constraint","alter","coloumn","table","all","any","asc","database","between","case","check","index","replace","procedure","unique","default","delete","drop","exec","exists","foreign","from","in","insert","into","limit","primary","key","rownum","set","top","trunctate","update","values"];
 		let editor : vscode.TextEditor | undefined = vscode.window.activeTextEditor;
 
 		if (editor != undefined) {
@@ -24,15 +24,18 @@ export function activate(context: vscode.ExtensionContext) {
 			for (let i = 0; i < SQLKeyWords.length; i++) {
 				if (text.indexOf(SQLKeyWords[i]) === 0) {
 					newText = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
-				}				
+				}
 				while (text != text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ") ||
 						text != text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ") ||
-						text != text.replace("(" + SQLKeyWords[i] + " ", "(" + SQLKeyWords[i].toUpperCase() + " ")) {
+						text != text.replace("(" + SQLKeyWords[i] + " ", "(" + SQLKeyWords[i].toUpperCase() + " ") ||
+						text != text.replace(" " + SQLKeyWords[i] + "\n", " " + SQLKeyWords[i].toUpperCase() + "\n") ||
+						text != text.replace("\n" + SQLKeyWords[i] + "\n", "\n" + SQLKeyWords[i].toUpperCase() + "\n")) {
 
 					text = text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ");
 					text = text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ");
 					text = text.replace("(" + SQLKeyWords[i] + " ", "(" + SQLKeyWords[i].toUpperCase() + " ");
-
+					text = text.replace(" " + SQLKeyWords[i] + "\n", " " + SQLKeyWords[i].toUpperCase() + "\n");
+					text = text.replace("\n" + SQLKeyWords[i] + "\n", "\n" + SQLKeyWords[i].toUpperCase() + "\n");
 				}
 			}
 

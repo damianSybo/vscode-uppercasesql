@@ -2,6 +2,11 @@
 
 All notable changes to the "vscode-uppercasesql" extension will be documented in this file.
 
+
+## [2.0.3]
+
+- fixed minor bug
+
 ## [2.0.2]
 
 - fixed major bug
