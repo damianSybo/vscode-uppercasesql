@@ -17,10 +17,9 @@ function activate(context) {
             let document = editor.document;
             let origText = document.getText();
             let text = origText.substr(0, origText.length);
-            let newText = "";
             for (let i = 0; i < SQLKeyWords.length; i++) {
                 if (text.indexOf(SQLKeyWords[i]) === 0) {
-                    newText = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
+                    text = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
                 }
                 while (text != text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ") ||
                     text != text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ") ||
