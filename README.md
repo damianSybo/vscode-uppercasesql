@@ -15,7 +15,6 @@ No known issues atm
 
 ## Release Notes
 
-### [1.0.3]
+## [2.0.0]
 
-- Decent optimization improvements
-
+- Introducing snippets!
