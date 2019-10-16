@@ -29,6 +29,12 @@
 				"command": "extension.SQLuppercase",
 				"key": "ctrl+alt+s"
 			}
+		],
+		"snippets": [
+			{
+				"language": "sql",
+				"path": "./snippets/sql.json"
+			}
 		]
 	},
 	"scripts": {

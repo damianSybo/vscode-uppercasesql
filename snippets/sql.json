@@ -1,0 +1,73 @@
+{
+    "SELECT": {
+        "prefix": "S",
+        "body": ["SELECT ${1:coloumn(s)}", "$0"],
+        "description": "SELECT <coloumn>"
+    },
+    "FROM": {
+        "prefix": "F",
+        "body": ["FROM ${1:table(s)}", "$0"],
+        "description": "FROM <table>"
+    },
+    "INNER JOIN USING": {
+        "prefix": "IJU",
+        "body": ["INNER JOIN ${1:table(s)} USING (${2:coloumnname})", "$0"],
+        "description": "INNER JOIN <table> USING (<coloumnname>)"
+    },
+    "INNER JOIN": {
+        "prefix": "IJ",
+        "body": ["INNER JOIN ${1:table(s)} ON (${2:coloumnname} = ${3:coloumnname})", "$0"],
+        "description": "INNER JOIN <table> ON (<coloumnname> = <coloumnname>)"
+    },
+    "NATURAL JOIN": {
+        "prefix": "NJ",
+        "body": ["NATURAL JOIN ${1:table(s)}", "$0"],
+        "description": "NATURAL JOIN <table>"
+    },
+    "LEFT JOIN": {
+        "prefix": "LJ",
+        "body": ["LEFT JOIN ${1:table(s)} ON (${2:coloumnname} = ${3:coloumnname})", "$0"],
+        "description": "LEFT JOIN <table> USING (<coloumnname>)"
+    },
+    "LEFT JOIN USING": {
+        "prefix": "LJU",
+        "body": ["LEFT JOIN ${1:table(s)} USING (${2:coloumnname})", "$0"],
+        "description": "LEFT JOIN <table> USING (<coloumnname>)"
+    },
+    "RIGHT JOIN": {
+        "prefix": "RJ",
+        "body": ["RIGHT JOIN ${1:table(s)} ON (${2:coloumnname} = ${3:coloumnname})", "$0"],
+        "description": "RIGHT JOIN <table> USING (<coloumnname>)"
+    },
+    "RIGHT JOIN USING": {
+        "prefix": "RJU",
+        "body": ["RIGHT JOIN ${1:table(s)} USING (${2:coloumnname})", "$0"],
+        "description": "RIGHT JOIN <table> USING (<coloumnname>)"
+    },
+    "FULL OUTER JOIN": {
+        "prefix": "FOJ",
+        "body": ["FULL OUTER JOIN ${1:table(s)} USING (${2:coloumnname})", "$0"],
+        "description": "FULL OUTER JOIN <table> USING (<coloumnname>)"
+    },
+    "WHERE": {
+        "prefix": "W",
+        "body": ["WHERE ${1:condition}", "$0"],
+        "description": "WHERE <condition>"
+    },
+    "HAVING": {
+        "prefix": "H",
+        "body": ["HAVING ${1:condition}", "$0"],
+        "description": "HAVING <condition>"
+    },
+
+    "SELECT FROM": {
+        "prefix": "SF",
+        "body": ["SELECT ${1:coloumn(s)}", "FROM ${2:table(s)}", "$0"],
+        "description": "SELECT <coloumn> FROM <table>"
+    },
+    "SELECT FROM WHERE": {
+        "prefix": "SFW",
+        "body": ["SELECT ${1:coloumn(s)}", "FROM ${2:table(s)}", "WHERE ${3:condition}", "$0"],
+        "description": "SELECT <coloumn> FROM <table> WHERE <condition>"
+    }
+}
