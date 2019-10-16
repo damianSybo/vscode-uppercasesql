@@ -12,29 +12,17 @@ function activate(context) {
     let disposable = vscode.commands.registerCommand('extension.SQLuppercase', () => {
         // The code you place here will be executed every time your command is executed
         let SQLKeyWords = ["select", "from", "where", "inner", "natural", "join", "outer", "right", "left", "full", "having", "as", "create", "view", "is", "null", "on", "using", "count", "not", "like", "and", "or", "order", "by", "group", "desc", "union", "with", "distinct", "add", "constraint", "alter", "coloumn", "table", "all", "any", "asc", "database", "between", "case", "check", "index", "replace", "procedure", "unique", "default", "delete", "drop", "exec", "exists", "foreign", "from", "in", "insert", "into", "limit", "primary", "key", "rownum", "set", "top", "trunctate", "update", "values"];
-        let reg = /select |from |where |inner |natural |join |outer |right |left |full |having |as |create |view |is |null |on |using |count |not |like |and |or |order |by |group |desc |union |with |distinct |add |constraint |alter |coloumn |table |all |any |asc |database |between |case |check |index |replace |procedure |unique |default |delete |drop |exec |exists |foreign |from |in |insert |into |limit |primary |key |rownum |set |top |trunctate |update |values/ig;
         let editor = vscode.window.activeTextEditor;
         if (editor != undefined) {
             let document = editor.document;
             let text = document.getText();
-            let lines = text.split("\n");
-            let newLines = [];
-            let newText = "";
-            for (let i = 0; i < lines.length; i++) {
-                let tempText = lines[i];
-                for (let j = 0; j < SQLKeyWords.length; j++) {
-                    tempText = tempText.replace(SQLKeyWords[j] + " ", SQLKeyWords[j].toUpperCase() + " ");
-                }
-                newLines.push(tempText);
+            for (let i = 0; i < text.length; i++) {
+                text = text.replace(SQLKeyWords[i], SQLKeyWords[i].toUpperCase());
             }
-            for (let i = 0; i < newLines.length; i++) {
-                newText += newLines[i] + "\n";
-            }
-            newText = newText.slice(0, newText.length - 1);
             editor.edit(editBuilder => {
                 editBuilder.delete(new vscode.Range(document.positionAt(0), document.positionAt(text.length)));
                 let beginning = new vscode.Position(0, 0);
-                editBuilder.insert(beginning, newText);
+                editBuilder.insert(beginning, text);
             });
         }
     });

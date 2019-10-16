@@ -18,29 +18,16 @@ export function activate(context: vscode.ExtensionContext) {
 		if (editor != undefined) {
 			let document : vscode.TextDocument = editor.document;
 			let text : string = document.getText();
-			let lines : string[] = text.split("\n");
-			let newLines : string[] = [];
-			let newText : string = "";
 			
 
-			for (let i = 0; i < lines.length; i++) {
-				let tempText = lines[i];
-				for (let j = 0; j < SQLKeyWords.length; j++) {
-					tempText = tempText.replace(SQLKeyWords[j] + " ", SQLKeyWords[j].toUpperCase() + " ");
-				}
-				newLines.push(tempText);
+			for (let i = 0; i < text.length; i++) {
+				text = text.replace(SQLKeyWords[i], SQLKeyWords[i].toUpperCase())
 			}
-
-			for (let i = 0; i < newLines.length; i++) {
-				newText += newLines[i] + "\n";
-			}
-
-			newText = newText.slice(0, newText.length-1);
 
 			editor.edit(editBuilder => {
 				editBuilder.delete(new vscode.Range(document.positionAt(0), document.positionAt(text.length)));
 				let beginning : vscode.Position = new vscode.Position(0, 0);
-				editBuilder.insert(beginning, newText);
+				editBuilder.insert(beginning, text);
 			});
 		}
 	});
