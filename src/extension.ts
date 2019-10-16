@@ -21,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
 			
 
 			for (let i = 0; i < text.length; i++) {
-				text = text.replace(SQLKeyWords[i], SQLKeyWords[i].toUpperCase())
+				text = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ")
 			}
 
 			editor.edit(editBuilder => {

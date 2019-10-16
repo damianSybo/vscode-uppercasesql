@@ -17,7 +17,7 @@ function activate(context) {
             let document = editor.document;
             let text = document.getText();
             for (let i = 0; i < text.length; i++) {
-                text = text.replace(SQLKeyWords[i], SQLKeyWords[i].toUpperCase());
+                text = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
             }
             editor.edit(editBuilder => {
                 editBuilder.delete(new vscode.Range(document.positionAt(0), document.positionAt(text.length)));
