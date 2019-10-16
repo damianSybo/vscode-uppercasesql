@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 			let text : string = document.getText();
 			
 
-			for (let i = 0; i < text.length; i++) {
+			for (let i = 0; i < SQLKeyWords.length; i++) {
 				text = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ")
 			}
 
