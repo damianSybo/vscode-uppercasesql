@@ -15,12 +15,19 @@ function activate(context) {
         let editor = vscode.window.activeTextEditor;
         if (editor != undefined) {
             let document = editor.document;
-            let text = document.getText().toLowerCase();
+            let origText = document.getText().toLowerCase();
+            let text = origText.substr(0, origText.length);
+            let newText = "";
             for (let i = 0; i < SQLKeyWords.length; i++) {
-                text = text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ");
-                text = text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ");
                 if (text.indexOf(SQLKeyWords[i]) === 0) {
-                    text = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
+                    newText = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
+                }
+                while (text != text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ") ||
+                    text != text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ") ||
+                    text != text.replace("(" + SQLKeyWords[i] + " ", "(" + SQLKeyWords[i].toUpperCase() + " ")) {
+                    text = text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ");
+                    text = text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ");
+                    text = text.replace("(" + SQLKeyWords[i] + " ", "(" + SQLKeyWords[i].toUpperCase() + " ");
                 }
             }
             editor.edit(editBuilder => {

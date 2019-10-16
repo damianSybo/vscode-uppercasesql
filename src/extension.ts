@@ -17,14 +17,22 @@ export function activate(context: vscode.ExtensionContext) {
 
 		if (editor != undefined) {
 			let document : vscode.TextDocument = editor.document;
-			let text : string = document.getText().toLowerCase();
-			
+			let origText : string = document.getText().toLowerCase()
+			let text : string = origText.substr(0, origText.length);
+			let newText : string = "";
 
 			for (let i = 0; i < SQLKeyWords.length; i++) {
-				text = text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ");
-				text = text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ");
 				if (text.indexOf(SQLKeyWords[i]) === 0) {
-					text = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
+					newText = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
+				}				
+				while (text != text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ") ||
+						text != text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ") ||
+						text != text.replace("(" + SQLKeyWords[i] + " ", "(" + SQLKeyWords[i].toUpperCase() + " ")) {
+
+					text = text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ");
+					text = text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ");
+					text = text.replace("(" + SQLKeyWords[i] + " ", "(" + SQLKeyWords[i].toUpperCase() + " ");
+
 				}
 			}
 
