@@ -15,28 +15,61 @@ function activate(context) {
         let editor = vscode.window.activeTextEditor;
         if (editor != undefined) {
             let document = editor.document;
-            let origText = document.getText();
-            let text = origText.substr(0, origText.length);
-            for (let i = 0; i < SQLKeyWords.length; i++) {
-                if (text.indexOf(SQLKeyWords[i]) === 0) {
-                    text = text.replace(SQLKeyWords[i] + " ", SQLKeyWords[i].toUpperCase() + " ");
-                }
-                while (text != text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ") ||
-                    text != text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ") ||
-                    text != text.replace("(" + SQLKeyWords[i] + " ", "(" + SQLKeyWords[i].toUpperCase() + " ") ||
-                    text != text.replace(" " + SQLKeyWords[i] + "\n", " " + SQLKeyWords[i].toUpperCase() + "\n") ||
-                    text != text.replace("\n" + SQLKeyWords[i] + "\n", "\n" + SQLKeyWords[i].toUpperCase() + "\n")) {
-                    text = text.replace("\n" + SQLKeyWords[i] + " ", "\n" + SQLKeyWords[i].toUpperCase() + " ");
-                    text = text.replace(" " + SQLKeyWords[i] + " ", " " + SQLKeyWords[i].toUpperCase() + " ");
-                    text = text.replace("(" + SQLKeyWords[i] + " ", "(" + SQLKeyWords[i].toUpperCase() + " ");
-                    text = text.replace(" " + SQLKeyWords[i] + "\n", " " + SQLKeyWords[i].toUpperCase() + "\n");
-                    text = text.replace("\n" + SQLKeyWords[i] + "\n", "\n" + SQLKeyWords[i].toUpperCase() + "\n");
-                }
+            let text = document.getText();
+            let lineArray = [];
+            let newLineArray = [];
+            // creates line array
+            for (let index = 0; index < document.lineCount; index++) {
+                lineArray.push(document.lineAt(index));
             }
+            let string = false; // check if in string
+            for (let index = 0; index < lineArray.length; index++) {
+                let lineText = lineArray[index].text;
+                let textArray = lineText.split(" ");
+                let newTextArray = [];
+                let comment = false; // check if comment line
+                for (let index2 = 0; index2 < textArray.length; index2++) {
+                    const word = textArray[index2];
+                    console.log(word.indexOf("--"));
+                    if (word.startsWith("--")) {
+                        comment = true;
+                    }
+                    if (word.startsWith("'") && word.length != 1) {
+                        string = true;
+                    }
+                    if (word.endsWith("'") && word.length != 1) {
+                        string = false;
+                    }
+                    if (word === "'") {
+                        string = !string;
+                    }
+                    if (SQLKeyWords.includes(word.toLowerCase()) && !comment && !string) {
+                        newTextArray.push(word.toUpperCase());
+                    }
+                    else {
+                        newTextArray.push(word);
+                    }
+                }
+                let newText = "";
+                for (let index2 = 0; index2 < newTextArray.length; index2++) {
+                    const word = newTextArray[index2];
+                    newText += word + " ";
+                }
+                newText = newText.slice(0, newText.length - 1);
+                newText += "\n";
+                newLineArray.push(newText);
+            }
+            let newText = "";
+            for (let index = 0; index < newLineArray.length; index++) {
+                newText += newLineArray[index];
+            }
+            //removes last linebreak
+            newText = newText.slice(0, newText.length - 1);
+            //deletes old text and inserts new
             editor.edit(editBuilder => {
                 editBuilder.delete(new vscode.Range(document.positionAt(0), document.positionAt(text.length)));
                 let beginning = new vscode.Position(0, 0);
-                editBuilder.insert(beginning, text);
+                editBuilder.insert(beginning, newText);
             });
         }
     });
