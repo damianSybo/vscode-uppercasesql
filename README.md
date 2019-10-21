@@ -28,7 +28,7 @@
 ## Extension Settings
 
 ## Known Issues
-- will not uppercase keywords with semicolon attached to it.
+- none
 
 ## Release Notes
 Latest important releasenotes

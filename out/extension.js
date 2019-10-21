@@ -29,8 +29,7 @@ function activate(context) {
                 let newTextArray = [];
                 let comment = false; // check if comment line
                 for (let index2 = 0; index2 < textArray.length; index2++) {
-                    const word = textArray[index2];
-                    console.log(word.indexOf("--"));
+                    let word = textArray[index2];
                     if (word.startsWith("--")) {
                         comment = true;
                     }
@@ -40,10 +39,13 @@ function activate(context) {
                     if (word.endsWith("'") && word.length != 1) {
                         string = false;
                     }
+                    if (word.replace(";", "").endsWith("'")) {
+                        string = false;
+                    }
                     if (word === "'") {
                         string = !string;
                     }
-                    if (SQLKeyWords.includes(word.toLowerCase()) && !comment && !string) {
+                    if (SQLKeyWords.includes(word.replace(";", "").toLowerCase()) && !comment && !string) {
                         newTextArray.push(word.toUpperCase());
                     }
                     else {
