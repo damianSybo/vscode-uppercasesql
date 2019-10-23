@@ -41,7 +41,8 @@ export function activate(context: vscode.ExtensionContext) {
                     if (word.replace(";", "").endsWith("'")) {string = false;}
 					if (word === "'") {string = !string}
 					
-                    if (SQLKeyWords.includes(word.replace(";", "").toLowerCase()) && !comment && !string) {
+                    if ((SQLKeyWords.includes(word.replace(";", "").toLowerCase()) ||
+                        SQLKeyWords.includes(word.replace("(", "").toLowerCase()))  && !comment && !string) {
                         newTextArray.push(word.toUpperCase());
                     }
                     else {

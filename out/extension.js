@@ -45,7 +45,8 @@ function activate(context) {
                     if (word === "'") {
                         string = !string;
                     }
-                    if (SQLKeyWords.includes(word.replace(";", "").toLowerCase()) && !comment && !string) {
+                    if ((SQLKeyWords.includes(word.replace(";", "").toLowerCase()) ||
+                        SQLKeyWords.includes(word.replace("(", "").toLowerCase())) && !comment && !string) {
                         newTextArray.push(word.toUpperCase());
                     }
                     else {
