@@ -11,7 +11,7 @@ function activate(context) {
     // The commandId parameter must match the command field in package.json
     let disposable = vscode.commands.registerCommand('extension.SQLuppercase', () => {
         // The code you place here will be executed every time your command is executed
-        const SQLKeyWords = ["select", "from", "where", "inner", "natural", "join", "outer", "right", "left", "full", "having", "as", "create", "view", "is", "null", "on", "using", "count", "not", "like", "and", "or", "order", "by", "group", "desc", "union", "with", "distinct", "add", "constraint", "alter", "coloumn", "table", "all", "any", "asc", "database", "between", "case", "check", "index", "replace", "procedure", "unique", "default", "delete", "drop", "exec", "exists", "foreign", "from", "in", "insert", "into", "limit", "primary", "key", "rownum", "set", "top", "trunctate", "update", "values"];
+        const SQLKeyWords = ["references", "select", "from", "where", "inner", "natural", "join", "outer", "right", "left", "full", "having", "as", "create", "view", "is", "null", "on", "using", "count", "not", "like", "and", "or", "order", "by", "group", "desc", "union", "with", "distinct", "add", "constraint", "alter", "coloumn", "table", "all", "any", "asc", "database", "between", "case", "check", "index", "replace", "procedure", "unique", "default", "delete", "drop", "exec", "exists", "foreign", "from", "in", "insert", "into", "limit", "primary", "key", "rownum", "set", "top", "trunctate", "update", "values"];
         let editor = vscode.window.activeTextEditor;
         if (editor != undefined) {
             let document = editor.document;
@@ -39,14 +39,15 @@ function activate(context) {
                     if (word.endsWith("'") && word.length != 1) {
                         string = false;
                     }
-                    if (word.replace(";", "").endsWith("'")) {
+                    if (word.endsWith("';")) {
                         string = false;
                     }
                     if (word === "'") {
                         string = !string;
                     }
                     if ((SQLKeyWords.includes(word.replace(";", "").toLowerCase()) ||
-                        SQLKeyWords.includes(word.replace("(", "").toLowerCase())) && !comment && !string) {
+                        SQLKeyWords.includes(word.replace("(", "").toLowerCase()) ||
+                        SQLKeyWords.includes(word.replace(",", "").toLowerCase())) && !comment && !string) {
                         newTextArray.push(word.toUpperCase());
                     }
                     else {
