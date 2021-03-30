@@ -12,7 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable : vscode.Disposable = vscode.commands.registerCommand('extension.SQLuppercase', () => {
 		// The code you place here will be executed every time your command is executed
 
-        const SQLKeyWords = ["references", "select", "from", "where", "inner", "natural", "join", "outer", "right", "left", "full", "having", "as", "create", "view", "is", "null", "on", "using", "count", "not", "like", "and", "or", "order", "by", "group", "desc", "union", "with", "distinct", "add", "constraint", "alter", "coloumn", "table", "all", "any", "asc", "database", "between", "case", "check", "index", "replace", "procedure", "unique", "default", "delete", "drop", "exec", "exists", "foreign", "from", "in", "insert", "into", "limit", "primary", "key", "rownum", "set", "top", "trunctate", "update", "values"];
+        const SQLKeyWords = ["add", "all", "alter", "and", "any", "as", "asc", "begin", "between", "break", "by", "case", "cast", "cluster", "coalesce", "count", "create", "current_date", "current_timestamp", "date", "declare", "default", "delete", "desc", "distinct", "do", "drop", "else", "end", "exists", "from", "full", "group", "having", "if", "in", "index", "inner", "insert", "int64", "into", "is", "join", "left", "like", "limit", "max", "message", "min", "not", "null", "on", "or", "order", "outer", "over", "partition", "raise", "rand", "replace", "right", "row_number", "rownum", "select", "set", "string", "table", "temporary", "then", "timestamp", "top", "trim", "union", "update", "upper", "using", "values", "view", "when", "where", "while", "with"];
         let editor = vscode.window.activeTextEditor;
         if (editor != undefined) {
             let document = editor.document;
